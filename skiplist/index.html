@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `skiplist` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, skiplist">
+
+    <title>skiplist - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'></p>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>skiplist</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-0' href='../src/skiplist/lib.rs.html#1-2010'>[src]</a></span></h1>
+<div class='docblock'><p>A skiplist is a list imlementation such that elements are always sorted, and the
+insertion and deletion of elements are done in <code>O(log(n))</code>.</p>
+
+<p>Conceptually, a skiplist resembles something like:</p>
+
+<pre><code class="language-text">&lt;head&gt; ----------&gt; [2] --------------------------------------------------&gt; [9] ----------&gt;
+&lt;head&gt; ----------&gt; [2] ------------------------------------[7] ----------&gt; [9] ----------&gt;
+&lt;head&gt; ----------&gt; [2] ----------&gt; [4] ------------------&gt; [7] ----------&gt; [9] --&gt; [10] -&gt;
+&lt;head&gt; --&gt; [1] --&gt; [2] --&gt; [3] --&gt; [4] --&gt; [5] --&gt; [6] --&gt; [7] --&gt; [8] --&gt; [9] --&gt; [10] -&gt;
+</code></pre>
+
+<p>where we see that a node <code>[x]</code> will have <code>n</code> pointers to other nodes, where <code>n</code> represents
+which level that node reaches.  The idea is that when a node needs to be found (say for
+insertion), then you start at the highest level and move down.  This allows for many of the
+lower-level nodes to be skipped thus making it faster.</p>
+
+<p>Each skiplist has an associated sorting function.  By default, the sorting function is
+<code>|a, b| a.cmp(b)</code>, but any function is permitted, so long as it satisfies the following properties:
+- It must be consistent:  <code>compare(a, b)</code> should always return the same result;
+- It should be anti-symmetric:  If <code>compare(a, b) == Less</code>, then <code>compare(a, b) == Greater</code>.
+  If this is not true, then some unexpected (and probably unsafe) behaviour may happen.</p>
+
+<p>Due to the nature of the skiplist being always sorted, it is not possible to get mutable
+pointers to the elements of the skiplist as this could leave the skiplist in an inconsistent
+state.  As a result, the <code>IndexMut</code> traits, <code>iter_mut</code>, and <code>get_mut</code> methods and traits are
+not implemented.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.IntoIter.html'
+                               title='skiplist::IntoIter'>IntoIter</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Iter.html'
+                               title='skiplist::Iter'>Iter</a></td>
+                        <td class='docblock short'></td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SkipList.html'
+                               title='skiplist::SkipList'>SkipList</a></td>
+                        <td class='docblock short'><p>The skiplist implementation.</p>
+</td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "skiplist";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>
