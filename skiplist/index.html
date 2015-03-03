@@ -43,9 +43,9 @@
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>skiplist</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-0' href='../src/skiplist/lib.rs.html#1-2010'>[src]</a></span></h1>
-<div class='docblock'><p>A skiplist is a list imlementation such that elements are always sorted, and the
-insertion and deletion of elements are done in <code>O(log(n))</code>.</p>
+        </span><a id='src-0' href='../src/skiplist/lib.rs.html#1-42'>[src]</a></span></h1>
+<div class='docblock'><p>A skiplist is a way of storing elements in such a way that elements can be efficiently
+accessed, inserted and removed, all in <code>O(log(n))</code> on average.</p>
 
 <p>Conceptually, a skiplist resembles something like:</p>
 
@@ -55,39 +55,27 @@ insertion and deletion of elements are done in <code>O(log(n))</code>.</p>
 &lt;head&gt; --&gt; [1] --&gt; [2] --&gt; [3] --&gt; [4] --&gt; [5] --&gt; [6] --&gt; [7] --&gt; [8] --&gt; [9] --&gt; [10] -&gt;
 </code></pre>
 
-<p>where we see that a node <code>[x]</code> will have <code>n</code> pointers to other nodes, where <code>n</code> represents
-which level that node reaches.  The idea is that when a node needs to be found (say for
-insertion), then you start at the highest level and move down.  This allows for many of the
-lower-level nodes to be skipped thus making it faster.</p>
+<p>where we each node <code>[x]</code> has references to nodes further down the list, allowing the algorithm
+to effectively skip ahead.</p>
 
-<p>Each skiplist has an associated sorting function.  By default, the sorting function is
-<code>|a, b| a.cmp(b)</code>, but any function is permitted, so long as it satisfies the following properties:
-- It must be consistent:  <code>compare(a, b)</code> should always return the same result;
-- It should be anti-symmetric:  If <code>compare(a, b) == Less</code>, then <code>compare(a, b) == Greater</code>.
-  If this is not true, then some unexpected (and probably unsafe) behaviour may happen.</p>
+<p>The ordered skiplist has an associated sorting function which <strong>must</strong> be well-behaved.
+Specifically, given some ordering function <code>f(a, b)</code>, it must satisfy the folowing properties:</p>
 
-<p>Due to the nature of the skiplist being always sorted, it is not possible to get mutable
-pointers to the elements of the skiplist as this could leave the skiplist in an inconsistent
-state.  As a result, the <code>IndexMut</code> traits, <code>iter_mut</code>, and <code>get_mut</code> methods and traits are
-not implemented.</p>
+<ul>
+<li>Be well defined: <code>f(a, b)</code> should always return the same value</li>
+<li>Be anti-symmetric: <code>f(a, b) == Greater</code> iff <code>f(b, a) == Less</code> and <code>f(a, b) == Equal == f(b, a)</code>.</li>
+<li>By transitive: If <code>f(a, b) == Greater</code> and <code>f(b, c) == Greater</code> then <code>f(a, c) == Greater</code>.</li>
+</ul>
+
+<p><strong>Failure to satisfy these properties can result in unexpected behaviour at best, and at worst
+will cause a segfault, null deref, or some other bad behaviour.</strong></p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                     <tr>
-                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.IntoIter.html'
-                               title='skiplist::IntoIter'>IntoIter</a></td>
-                        <td class='docblock short'></td>
-                    </tr>
-                
-                    <tr>
-                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.Iter.html'
-                               title='skiplist::Iter'>Iter</a></td>
-                        <td class='docblock short'></td>
-                    </tr>
-                
-                    <tr>
-                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SkipList.html'
-                               title='skiplist::SkipList'>SkipList</a></td>
-                        <td class='docblock short'><p>The skiplist implementation.</p>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.OrderedSkipList.html'
+                               title='skiplist::OrderedSkipList'>OrderedSkipList</a></td>
+                        <td class='docblock short'><p>The ordered skiplist provides a way of storing elements such that they are always
+sorted and at the same time provides efficient way to access, insert and remove nodes.</p>
 </td>
                     </tr>
                 </table></section>
