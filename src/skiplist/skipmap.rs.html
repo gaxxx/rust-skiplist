@@ -1866,6 +1866,8 @@
 <span id="1824">1824</span>
 <span id="1825">1825</span>
 <span id="1826">1826</span>
+<span id="1827">1827</span>
+<span id="1828">1828</span>
 </pre><pre class='rust '>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rand</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
@@ -2875,13 +2877,13 @@
             <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>length</span> <span class='op'>=</span> <span class='number'>0</span>;
             <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='ident'>start</span>;
             <span class='kw'>if</span> <span class='ident'>lvl</span> <span class='op'>==</span> <span class='number'>0</span> {
-                <span class='comment'>// Since the head node is not a node proper, the link between it and the next node</span>
-                <span class='comment'>// (on level 0) is actual 0 hence the offset here.</span>
-                <span class='kw'>if</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>is_head</span>() {
-                    <span class='ident'>length</span> <span class='op'>-=</span> <span class='number'>1</span>;
-                }
                 <span class='kw'>while</span> <span class='prelude-val'>Some</span>(<span class='ident'>node</span>) <span class='op'>!=</span> <span class='ident'>end</span> {
                     <span class='ident'>length</span> <span class='op'>+=</span> <span class='number'>1</span>;
+                    <span class='comment'>// Since the head node is not a node proper, the link between it and the next node</span>
+                    <span class='comment'>// (on level 0) is actual 0 hence the offset here.</span>
+                    <span class='kw'>if</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>is_head</span>() {
+                        <span class='ident'>length</span> <span class='op'>-=</span> <span class='number'>1</span>;
+                    }
                     <span class='kw'>match</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='ident'>lvl</span>] {
                         <span class='prelude-val'>Some</span>(<span class='ident'>ptr</span>) <span class='op'>=&gt;</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='ident'>ptr</span>,
                         <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>break</span>,
@@ -3255,7 +3257,9 @@
             }
             <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>next</span>) <span class='op'>=</span> (<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>start</span>).<span class='ident'>links</span>[<span class='number'>0</span>] {
                 <span class='self'>self</span>.<span class='ident'>start</span> <span class='op'>=</span> <span class='ident'>next</span>;
-                <span class='self'>self</span>.<span class='ident'>size</span> <span class='op'>-=</span> <span class='number'>1</span>;
+                <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>size</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
+                    <span class='self'>self</span>.<span class='ident'>size</span> <span class='op'>-=</span> <span class='number'>1</span>;
+                }
                 <span class='kw'>return</span> <span class='prelude-val'>Some</span>(((<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>start</span>).<span class='ident'>key</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>(), (<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>start</span>).<span class='ident'>value</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>()));
             }
             <span class='prelude-val'>None</span>
