@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='index.html'>skiplist</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.OrderedSkipList.html' title='The ordered skiplist provides a way of storing elements such that they are always sorted and at the same time provides efficient way to access, insert and remove nodes.'>OrderedSkipList</a></div>
+        <p class='location'><a href='index.html'>skiplist</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.OrderedSkipList.html' title='The ordered skiplist provides a way of storing elements such that they are always sorted and at the same time provides efficient way to access, insert and remove nodes. Just like `SkipList`, it also provides access to indices.'>OrderedSkipList</a><a class='struct ' href='struct.SkipMap.html' title='The skipmap provides a way of storing element pairs such that they keys are always sorted whilst at the same time providing efficient way to access, insert and removes nodes.'>SkipMap</a></div>
     </section>
 
     <nav class="sub">
@@ -43,11 +43,12 @@
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>skiplist</a>::<wbr><a class='struct' href=''>OrderedSkipList</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-563' href='../src/skiplist/ordered_skiplist.rs.html#124-130'>[src]</a></span></h1>
+        </span><a id='src-563' href='../src/skiplist/ordered_skiplist.rs.html#125-131'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct OrderedSkipList&lt;T&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>The ordered skiplist provides a way of storing elements such that they are always
-sorted and at the same time provides efficient way to access, insert and remove nodes.</p>
+sorted and at the same time provides efficient way to access, insert and remove nodes.
+Just like <code>SkipList</code>, it also provides access to indices.</p>
 
 <p>By default, the OrderedSkipList uses the comparison function <code>a.partial_cmp(b).expect(&quot;Value
 cannot be ordered&quot;)</code>.  This allows the list to handles all types which implement <code>Ord</code> and
@@ -105,20 +106,76 @@ be ordered (such as <code>Float::nan()</code>).</p>
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skiplist</span> <span class='op'>=</span> <span class='ident'>OrderedSkipList</span>::<span class='ident'>with_capacity</span>(<span class='number'>100</span>);
 <span class='ident'>skiplist</span>.<span class='ident'>extend</span>(<span class='number'>0</span>..<span class='number'>100</span>);
 </pre>
-</div></div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='struct' href='../skiplist/struct.OrderedSkipList.html' title='skiplist::OrderedSkipList'>OrderedSkipList</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.with_comp' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.with_comp' class='fnname'>with_comp</a>&lt;F&gt;(f: F) -&gt; <a class='struct' href='../skiplist/struct.OrderedSkipList.html' title='skiplist::OrderedSkipList'>OrderedSkipList</a>&lt;T&gt; <span class='where'>where F: 'static + <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Fn.html' title='core::ops::Fn'>Fn</a>(&amp;T, &amp;T) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a></span></code></h4>
+</div></div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='struct' href='../skiplist/struct.OrderedSkipList.html' title='skiplist::OrderedSkipList'>OrderedSkipList</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.with_comp' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.with_comp' class='fnname'>with_comp</a>&lt;F&gt;(f: F) -&gt; <a class='struct' href='../skiplist/struct.OrderedSkipList.html' title='skiplist::OrderedSkipList'>OrderedSkipList</a>&lt;T&gt; <span class='where'>where F: 'static + <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Fn.html' title='core::ops::Fn'>Fn</a>(&amp;T, &amp;T) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a></span></code></h4>
 <div class='docblock'><p>Create a new skiplist using the provided function in order to determine the ordering of
 elements within the list.  It will be generated with 16 levels.</p>
 
+<h1 id="warning" class='section-header'><a
+                           href="#warning">Warning</a></h1>
+<p>The sorting function which <strong>must</strong> be well-behaved.  Specifically, given some ordering
+function <code>f(a, b)</code>, it must satisfy the folowing properties:</p>
+
+<ul>
+<li>Be well defined: <code>f(a, b)</code> should always return the same value</li>
+<li>Be anti-symmetric: <code>f(a, b) == Greater</code> iff <code>f(b, a) == Less</code> and <code>f(a, b) == Equal == f(b,
+a)</code>.</li>
+<li>By transitive: If <code>f(a, b) == Greater</code> and <code>f(b, c) == Greater</code> then <code>f(a, c) == Greater</code>.</li>
+</ul>
+
+<p><strong>Failure to satisfy these properties can result in unexpected behaviour at best, and at worst
+will cause a segfault, null deref, or some other bad behaviour.</strong></p>
+
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1>
-<p>Floats cannot be used by default because they aren&#39;t absolutely ordered (where does <code>NAN</code>
-fit in?).  The following skiplist will accept floats as long as they are well-ordered.</p>
-<pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+<span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>OrderedSkipList</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::<span class='ident'>Ordering</span>;
+
+<span class='comment'>// Store even number before odd ones and sort as usual within same parity group.</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skiplist</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>OrderedSkipList</span>::<span class='ident'>with_comp</span>(
+    <span class='op'>|</span><span class='ident'>a</span>: <span class='kw-2'>&amp;</span><span class='ident'>u64</span>, <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='ident'>u64</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='ident'>a</span><span class='op'>%</span><span class='number'>2</span> <span class='op'>==</span> <span class='ident'>b</span><span class='op'>%</span><span class='number'>2</span> {
+        <span class='ident'>a</span>.<span class='ident'>cmp</span>(<span class='ident'>b</span>)
+    } <span class='kw'>else</span> <span class='kw'>if</span> <span class='ident'>a</span><span class='op'>%</span><span class='number'>2</span> <span class='op'>==</span> <span class='number'>0</span> {
+        <span class='ident'>Ordering</span>::<span class='ident'>Less</span>
+    } <span class='kw'>else</span> {
+        <span class='ident'>Ordering</span>::<span class='ident'>Greater</span>
+    })};
+</pre>
+</div><h4 id='method.sort_by' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.sort_by' class='fnname'>sort_by</a>&lt;F&gt;(&amp;mut self, f: F) <span class='where'>where F: 'static + <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Fn.html' title='core::ops::Fn'>Fn</a>(&amp;T, &amp;T) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a></span></code></h4>
+<div class='docblock'><p>Change the method which determines the ordering of the elements in the skiplist.</p>
+
+<h1 id="panics" class='section-header'><a
+                           href="#panics">Panics</a></h1>
+<p>This call will panic if the ordering of the elements will be changed as a result of this
+new comparison method.</p>
+
+<p>As a result, <code>sort_by</code> is best to call if the skiplist is empty or has just a single
+element and may panic with 2 or more elements.</p>
+
+<h1 id="warning" class='section-header'><a
+                           href="#warning">Warning</a></h1>
+<p>The sorting function which <strong>must</strong> be well-behaved.  Specifically, given some ordering
+function <code>f(a, b)</code>, it must satisfy the folowing properties:</p>
+
+<ul>
+<li>Be well defined: <code>f(a, b)</code> should always return the same value</li>
+<li>Be anti-symmetric: <code>f(a, b) == Greater</code> iff <code>f(b, a) == Less</code> and <code>f(a, b) == Equal == f(b,
+a)</code>.</li>
+<li>By transitive: If <code>f(a, b) == Greater</code> and <code>f(b, c) == Greater</code> then <code>f(a, c) == Greater</code>.</li>
+</ul>
+
+<p><strong>Failure to satisfy these properties can result in unexpected behaviour at best, and at worst
+will cause a segfault, null deref, or some other bad behaviour.</strong></p>
+
+<h1 id="examples" class='section-header'><a
+                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>OrderedSkipList</span>;
 
-<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skiplist</span> <span class='op'>=</span> <span class='ident'>OrderedSkipList</span>::<span class='ident'>with_comp</span>(<span class='op'>|</span><span class='ident'>a</span>: <span class='kw-2'>&amp;</span><span class='ident'>f64</span>, <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='ident'>f64</span><span class='op'>|</span> {
-    <span class='ident'>a</span>.<span class='ident'>partial_cmp</span>(<span class='ident'>b</span>).<span class='ident'>expect</span>(<span class='string'>&quot;Non-ordered value provided.&quot;</span>)
-});
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skiplist</span> <span class='op'>=</span> <span class='ident'>OrderedSkipList</span>::<span class='ident'>new</span>();
+<span class='kw'>unsafe</span> { <span class='ident'>skiplist</span>.<span class='ident'>sort_by</span>(<span class='op'>|</span><span class='ident'>a</span>: <span class='kw-2'>&amp;</span><span class='ident'>i64</span>, <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='ident'>i64</span><span class='op'>|</span> <span class='ident'>b</span>.<span class='ident'>cmp</span>(<span class='ident'>a</span>)) } <span class='comment'>// All good; skiplist empty.</span>
+<span class='ident'>skiplist</span>.<span class='ident'>insert</span>(<span class='number'>0</span>);                                       <span class='comment'>// Would still be good here.</span>
+<span class='ident'>skiplist</span>.<span class='ident'>insert</span>(<span class='number'>10</span>);
+<span class='kw'>unsafe</span> { <span class='ident'>skiplist</span>.<span class='ident'>sort_by</span>(<span class='op'>|</span><span class='ident'>a</span>: <span class='kw-2'>&amp;</span><span class='ident'>i64</span>, <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='ident'>i64</span><span class='op'>|</span> <span class='ident'>a</span>.<span class='ident'>cmp</span>(<span class='ident'>b</span>)) } <span class='comment'>// Panics; order would change.</span>
 </pre>
 </div><h4 id='method.clear' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.clear' class='fnname'>clear</a>(&amp;mut self)</code></h4>
 <div class='docblock'><p>Clears the skiplist, removing all values.</p>
@@ -155,27 +212,6 @@ fit in?).  The following skiplist will accept floats as long as they are well-or
 
 <span class='ident'>skiplist</span>.<span class='ident'>insert</span>(<span class='number'>1</span>);
 <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>skiplist</span>.<span class='ident'>is_empty</span>());
-</pre>
-</div><h4 id='method.sort_by' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.sort_by' class='fnname'>sort_by</a>&lt;F&gt;(&amp;mut self, f: F) <span class='where'>where F: 'static + <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Fn.html' title='core::ops::Fn'>Fn</a>(&amp;T, &amp;T) -&gt; <a class='enum' href='http://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a></span></code></h4>
-<div class='docblock'><p>Change the method which determines the ordering of the elements in the skiplist.</p>
-
-<h1 id="panics" class='section-header'><a
-                           href="#panics">Panics</a></h1>
-<p>This call will panic if the ordering of the elements will be changed as a result of this
-new comparison method.</p>
-
-<p>As a result, <code>sort_by</code> is safe to call if the skiplist is empty or has just a single
-element and may panic with 2 or more elements.</p>
-
-<h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
-<span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>OrderedSkipList</span>;
-
-<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skiplist</span> <span class='op'>=</span> <span class='ident'>OrderedSkipList</span>::<span class='ident'>new</span>();
-<span class='ident'>skiplist</span>.<span class='ident'>sort_by</span>(<span class='op'>|</span><span class='ident'>a</span>: <span class='kw-2'>&amp;</span><span class='ident'>i64</span>, <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='ident'>i64</span><span class='op'>|</span> <span class='ident'>b</span>.<span class='ident'>cmp</span>(<span class='ident'>a</span>)); <span class='comment'>// All good; skiplist empty.</span>
-<span class='ident'>skiplist</span>.<span class='ident'>insert</span>(<span class='number'>0</span>);
-<span class='ident'>skiplist</span>.<span class='ident'>insert</span>(<span class='number'>10</span>);
-<span class='ident'>skiplist</span>.<span class='ident'>sort_by</span>(<span class='op'>|</span><span class='ident'>a</span>: <span class='kw-2'>&amp;</span><span class='ident'>i64</span>, <span class='ident'>b</span>: <span class='kw-2'>&amp;</span><span class='ident'>i64</span><span class='op'>|</span> <span class='ident'>a</span>.<span class='ident'>cmp</span>(<span class='ident'>b</span>)); <span class='comment'>// Panics; order would change.</span>
 </pre>
 </div><h4 id='method.insert' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert' class='fnname'>insert</a>(&amp;mut self, value: T)</code></h4>
 <div class='docblock'><p>Insert the element into the skiplist.</p>

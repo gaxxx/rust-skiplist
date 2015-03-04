@@ -2024,6 +2024,47 @@
 <span id="1982">1982</span>
 <span id="1983">1983</span>
 <span id="1984">1984</span>
+<span id="1985">1985</span>
+<span id="1986">1986</span>
+<span id="1987">1987</span>
+<span id="1988">1988</span>
+<span id="1989">1989</span>
+<span id="1990">1990</span>
+<span id="1991">1991</span>
+<span id="1992">1992</span>
+<span id="1993">1993</span>
+<span id="1994">1994</span>
+<span id="1995">1995</span>
+<span id="1996">1996</span>
+<span id="1997">1997</span>
+<span id="1998">1998</span>
+<span id="1999">1999</span>
+<span id="2000">2000</span>
+<span id="2001">2001</span>
+<span id="2002">2002</span>
+<span id="2003">2003</span>
+<span id="2004">2004</span>
+<span id="2005">2005</span>
+<span id="2006">2006</span>
+<span id="2007">2007</span>
+<span id="2008">2008</span>
+<span id="2009">2009</span>
+<span id="2010">2010</span>
+<span id="2011">2011</span>
+<span id="2012">2012</span>
+<span id="2013">2013</span>
+<span id="2014">2014</span>
+<span id="2015">2015</span>
+<span id="2016">2016</span>
+<span id="2017">2017</span>
+<span id="2018">2018</span>
+<span id="2019">2019</span>
+<span id="2020">2020</span>
+<span id="2021">2021</span>
+<span id="2022">2022</span>
+<span id="2023">2023</span>
+<span id="2024">2024</span>
+<span id="2025">2025</span>
 </pre><pre class='rust '>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rand</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
@@ -2132,6 +2173,7 @@
 
 <span class='doccomment'>/// The ordered skiplist provides a way of storing elements such that they are always</span>
 <span class='doccomment'>/// sorted and at the same time provides efficient way to access, insert and remove nodes.</span>
+<span class='doccomment'>/// Just like `SkipList`, it also provides access to indices.</span>
 <span class='doccomment'>///</span>
 <span class='doccomment'>/// By default, the OrderedSkipList uses the comparison function `a.partial_cmp(b).expect(&quot;Value</span>
 <span class='doccomment'>/// cannot be ordered&quot;)`.  This allows the list to handles all types which implement `Ord` and</span>
@@ -2229,20 +2271,38 @@
     <span class='doccomment'>/// Create a new skiplist using the provided function in order to determine the ordering of</span>
     <span class='doccomment'>/// elements within the list.  It will be generated with 16 levels.</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>/// # Warning</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// Floats cannot be used by default because they aren&#39;t absolutely ordered (where does `NAN`</span>
-    <span class='doccomment'>/// fit in?).  The following skiplist will accept floats as long as they are well-ordered.</span>
+    <span class='doccomment'>/// The sorting function which **must** be well-behaved.  Specifically, given some ordering</span>
+    <span class='doccomment'>/// function `f(a, b)`, it must satisfy the folowing properties:</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// - Be well defined: `f(a, b)` should always return the same value</span>
+    <span class='doccomment'>/// - Be anti-symmetric: `f(a, b) == Greater` iff `f(b, a) == Less` and `f(a, b) == Equal == f(b,</span>
+    <span class='doccomment'>///   a)`.</span>
+    <span class='doccomment'>/// - By transitive: If `f(a, b) == Greater` and `f(b, c) == Greater` then `f(a, c) == Greater`.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// **Failure to satisfy these properties can result in unexpected behaviour at best, and at worst</span>
+    <span class='doccomment'>/// will cause a segfault, null deref, or some other bad behaviour.**</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
     <span class='doccomment'>/// use skiplist::OrderedSkipList;</span>
+    <span class='doccomment'>/// use std::cmp::Ordering;</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// let mut skiplist = OrderedSkipList::with_comp(|a: &amp;f64, b: &amp;f64| {</span>
-    <span class='doccomment'>///     a.partial_cmp(b).expect(&quot;Non-ordered value provided.&quot;)</span>
-    <span class='doccomment'>/// });</span>
+    <span class='doccomment'>/// // Store even number before odd ones and sort as usual within same parity group.</span>
+    <span class='doccomment'>/// let mut skiplist = unsafe { OrderedSkipList::with_comp(</span>
+    <span class='doccomment'>///     |a: &amp;u64, b: &amp;u64|</span>
+    <span class='doccomment'>///     if a%2 == b%2 {</span>
+    <span class='doccomment'>///         a.cmp(b)</span>
+    <span class='doccomment'>///     } else if a%2 == 0 {</span>
+    <span class='doccomment'>///         Ordering::Less</span>
+    <span class='doccomment'>///     } else {</span>
+    <span class='doccomment'>///         Ordering::Greater</span>
+    <span class='doccomment'>///     })};</span>
     <span class='doccomment'>/// ```</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>with_comp</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>(<span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> <span class='kw'>where</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>with_comp</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>(<span class='ident'>f</span>: <span class='ident'>F</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> <span class='kw'>where</span>
             <span class='ident'>F</span>: <span class='lifetime'>&#39;static</span> <span class='op'>+</span> <span class='ident'>Fn</span>(<span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
         <span class='kw'>let</span> <span class='ident'>lg</span> <span class='op'>=</span> <span class='ident'>GeometricalLevelGenerator</span>::<span class='ident'>new</span>(<span class='number'>16</span>, <span class='number'>1.0</span><span class='op'>/</span><span class='number'>2.0</span>);
         <span class='ident'>OrderedSkipList</span> {
@@ -2251,6 +2311,56 @@
             <span class='ident'>level_generator</span>: <span class='ident'>lg</span>,
             <span class='ident'>compare</span>: <span class='kw'>box</span> <span class='ident'>f</span>,
         }
+    }
+
+    <span class='doccomment'>/// Change the method which determines the ordering of the elements in the skiplist.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Panics</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// This call will panic if the ordering of the elements will be changed as a result of this</span>
+    <span class='doccomment'>/// new comparison method.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// As a result, `sort_by` is best to call if the skiplist is empty or has just a single</span>
+    <span class='doccomment'>/// element and may panic with 2 or more elements.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Warning</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The sorting function which **must** be well-behaved.  Specifically, given some ordering</span>
+    <span class='doccomment'>/// function `f(a, b)`, it must satisfy the folowing properties:</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// - Be well defined: `f(a, b)` should always return the same value</span>
+    <span class='doccomment'>/// - Be anti-symmetric: `f(a, b) == Greater` iff `f(b, a) == Less` and `f(a, b) == Equal == f(b,</span>
+    <span class='doccomment'>///   a)`.</span>
+    <span class='doccomment'>/// - By transitive: If `f(a, b) == Greater` and `f(b, c) == Greater` then `f(a, c) == Greater`.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// **Failure to satisfy these properties can result in unexpected behaviour at best, and at worst</span>
+    <span class='doccomment'>/// will cause a segfault, null deref, or some other bad behaviour.**</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```should_fail</span>
+    <span class='doccomment'>/// use skiplist::OrderedSkipList;</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// let mut skiplist = OrderedSkipList::new();</span>
+    <span class='doccomment'>/// unsafe { skiplist.sort_by(|a: &amp;i64, b: &amp;i64| b.cmp(a)) } // All good; skiplist empty.</span>
+    <span class='doccomment'>/// skiplist.insert(0);                                       // Would still be good here.</span>
+    <span class='doccomment'>/// skiplist.insert(10);</span>
+    <span class='doccomment'>/// unsafe { skiplist.sort_by(|a: &amp;i64, b: &amp;i64| a.cmp(b)) } // Panics; order would change.</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>sort_by</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='kw'>where</span>
+            <span class='ident'>F</span>: <span class='lifetime'>&#39;static</span> <span class='op'>+</span> <span class='ident'>Fn</span>(<span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>node</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute_copy</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>head</span>);
+
+        <span class='kw'>while</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>next</span>) <span class='op'>=</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='number'>0</span>] {
+            <span class='kw'>if</span> <span class='kw'>let</span> (<span class='kw-2'>&amp;</span><span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>a</span>), <span class='kw-2'>&amp;</span><span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>b</span>)) <span class='op'>=</span> (<span class='kw-2'>&amp;</span>(<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>value</span>, <span class='kw-2'>&amp;</span>(<span class='op'>*</span><span class='ident'>next</span>).<span class='ident'>value</span>) {
+                <span class='kw'>if</span> <span class='ident'>f</span>(<span class='ident'>a</span>, <span class='ident'>b</span>) <span class='op'>==</span> <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> {
+                    <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;New ordering function cannot be used.&quot;</span>);
+                }
+            }
+            <span class='ident'>node</span> <span class='op'>=</span> <span class='ident'>next</span>;
+        }
+
+        <span class='self'>self</span>.<span class='ident'>compare</span> <span class='op'>=</span> <span class='kw'>box</span> <span class='ident'>f</span>;
     }
 
     <span class='doccomment'>/// Clears the skiplist, removing all values.</span>
@@ -2267,6 +2377,17 @@
     <span class='doccomment'>/// ```</span>
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>clear</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
+        <span class='kw'>unsafe</span> {
+            <span class='kw'>let</span> <span class='ident'>node</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute_copy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>head</span>);
+
+            <span class='kw'>while</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='kw-2'>mut</span> <span class='ident'>next</span>) <span class='op'>=</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>next</span> {
+                <span class='ident'>mem</span>::<span class='ident'>replace</span>(
+                    <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>next</span>,
+                    <span class='ident'>mem</span>::<span class='ident'>replace</span>(
+                        <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>next</span>.<span class='ident'>next</span>,
+                        <span class='prelude-val'>None</span>));
+            }
+        }
         <span class='kw'>let</span> <span class='ident'>new_head</span> <span class='op'>=</span> <span class='kw'>box</span> <span class='ident'>SkipNode</span>::<span class='ident'>head</span>(<span class='self'>self</span>.<span class='ident'>level_generator</span>.<span class='ident'>total</span>());
         <span class='self'>self</span>.<span class='ident'>len</span> <span class='op'>=</span> <span class='number'>0</span>;
         <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>head</span>, <span class='ident'>new_head</span>);
@@ -2304,45 +2425,6 @@
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_empty</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='self'>self</span>.<span class='ident'>len</span> <span class='op'>==</span> <span class='number'>0</span>
-    }
-
-    <span class='doccomment'>/// Change the method which determines the ordering of the elements in the skiplist.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Panics</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// This call will panic if the ordering of the elements will be changed as a result of this</span>
-    <span class='doccomment'>/// new comparison method.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// As a result, `sort_by` is safe to call if the skiplist is empty or has just a single</span>
-    <span class='doccomment'>/// element and may panic with 2 or more elements.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Examples</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```should_fail</span>
-    <span class='doccomment'>/// use skiplist::OrderedSkipList;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// let mut skiplist = OrderedSkipList::new();</span>
-    <span class='doccomment'>/// skiplist.sort_by(|a: &amp;i64, b: &amp;i64| b.cmp(a)); // All good; skiplist empty.</span>
-    <span class='doccomment'>/// skiplist.insert(0);</span>
-    <span class='doccomment'>/// skiplist.insert(10);</span>
-    <span class='doccomment'>/// skiplist.sort_by(|a: &amp;i64, b: &amp;i64| a.cmp(b)); // Panics; order would change.</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>sort_by</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>f</span>: <span class='ident'>F</span>) <span class='kw'>where</span>
-            <span class='ident'>F</span>: <span class='lifetime'>&#39;static</span> <span class='op'>+</span> <span class='ident'>Fn</span>(<span class='kw-2'>&amp;</span><span class='ident'>T</span>, <span class='kw-2'>&amp;</span><span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>Ordering</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>node</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute_copy</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>head</span>);
-
-            <span class='kw'>while</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>next</span>) <span class='op'>=</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='number'>0</span>] {
-                <span class='kw'>if</span> <span class='kw'>let</span> (<span class='kw-2'>&amp;</span><span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>a</span>), <span class='kw-2'>&amp;</span><span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>b</span>)) <span class='op'>=</span> (<span class='kw-2'>&amp;</span>(<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>value</span>, <span class='kw-2'>&amp;</span>(<span class='op'>*</span><span class='ident'>next</span>).<span class='ident'>value</span>) {
-                    <span class='kw'>if</span> <span class='ident'>f</span>(<span class='ident'>a</span>, <span class='ident'>b</span>) <span class='op'>==</span> <span class='ident'>Ordering</span>::<span class='ident'>Greater</span> {
-                        <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;New ordering function cannot be used.&quot;</span>);
-                    }
-                }
-                <span class='ident'>node</span> <span class='op'>=</span> <span class='ident'>next</span>;
-            }
-        }
-
-        <span class='self'>self</span>.<span class='ident'>compare</span> <span class='op'>=</span> <span class='kw'>box</span> <span class='ident'>f</span>;
     }
 
     <span class='doccomment'>/// Insert the element into the skiplist.</span>
@@ -2638,12 +2720,6 @@
                         }
                     }
                 } <span class='kw'>else</span> {
-                    <span class='comment'>// We have not yet found the node, and there are no further nodes at this</span>
-                    <span class='comment'>// level, so the return node (if present) is between `node` and tail.</span>
-                    <span class='kw'>if</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='ident'>lvl</span>].<span class='ident'>is_none</span>() {
-                        <span class='ident'>prev_nodes</span>.<span class='ident'>push</span>(<span class='ident'>node</span>);
-                        <span class='kw'>continue</span>;
-                    }
                     <span class='kw'>while</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>next</span>) <span class='op'>=</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='ident'>lvl</span>] {
                         <span class='kw'>if</span> <span class='kw'>let</span> <span class='kw-2'>&amp;</span><span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>next_value</span>) <span class='op'>=</span> <span class='kw-2'>&amp;</span>(<span class='op'>*</span><span class='ident'>next</span>).<span class='ident'>value</span> {
                             <span class='kw'>match</span> (<span class='self'>self</span>.<span class='ident'>compare</span>)(<span class='ident'>next_value</span>, <span class='ident'>value</span>) {
@@ -2662,6 +2738,12 @@
                                 },
                             }
                         }
+                    }
+                    <span class='comment'>// We have not yet found the node, and there are no further nodes at this</span>
+                    <span class='comment'>// level, so the return node (if present) is between `node` and tail.</span>
+                    <span class='kw'>if</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='ident'>lvl</span>].<span class='ident'>is_none</span>() {
+                        <span class='ident'>prev_nodes</span>.<span class='ident'>push</span>(<span class='ident'>node</span>);
+                        <span class='kw'>continue</span>;
                     }
                 }
             }
@@ -2745,10 +2827,6 @@
                         }
                     }
                 } <span class='kw'>else</span> {
-                    <span class='kw'>if</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='ident'>lvl</span>].<span class='ident'>is_none</span>() {
-                        <span class='ident'>prev_nodes</span>.<span class='ident'>push</span>(<span class='ident'>node</span>);
-                        <span class='kw'>continue</span>;
-                    }
                     <span class='kw'>while</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>next</span>) <span class='op'>=</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='ident'>lvl</span>] {
                         <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>next_value</span>) <span class='op'>=</span> (<span class='op'>*</span><span class='ident'>next</span>).<span class='ident'>value</span> {
                             <span class='kw'>match</span> (<span class='self'>self</span>.<span class='ident'>compare</span>)(<span class='ident'>next_value</span>, <span class='ident'>value</span>) {
@@ -2773,6 +2851,10 @@
                                 },
                             }
                         }
+                    }
+                    <span class='kw'>if</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='ident'>lvl</span>].<span class='ident'>is_none</span>() {
+                        <span class='ident'>prev_nodes</span>.<span class='ident'>push</span>(<span class='ident'>node</span>);
+                        <span class='kw'>continue</span>;
                     }
                 }
             }

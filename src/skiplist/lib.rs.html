@@ -82,6 +82,8 @@
 <span id="40">40</span>
 <span id="41">41</span>
 <span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! A skiplist is a way of storing elements in such a way that elements can be efficiently</span>
 <span class='doccomment'>//! accessed, inserted and removed, all in `O(log(n))` on average.</span>
@@ -123,8 +125,10 @@
 
 <span class='kw'>mod</span> <span class='ident'>level_generator</span>;
 <span class='kw'>mod</span> <span class='ident'>ordered_skiplist</span>;
+<span class='kw'>mod</span> <span class='ident'>skipmap</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ordered_skiplist</span>::<span class='ident'>OrderedSkipList</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>skipmap</span>::<span class='ident'>SkipMap</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

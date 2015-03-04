@@ -43,7 +43,7 @@
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>skiplist</a><wbr></span><span class='out-of-band'><a href='stability.html'>[stability]</a> <span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-0' href='../src/skiplist/lib.rs.html#1-42'>[src]</a></span></h1>
+        </span><a id='src-0' href='../src/skiplist/lib.rs.html#1-44'>[src]</a></span></h1>
 <div class='docblock'><p>A skiplist is a way of storing elements in such a way that elements can be efficiently
 accessed, inserted and removed, all in <code>O(log(n))</code> on average.</p>
 
@@ -75,7 +75,16 @@ will cause a segfault, null deref, or some other bad behaviour.</strong></p>
                         <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.OrderedSkipList.html'
                                title='skiplist::OrderedSkipList'>OrderedSkipList</a></td>
                         <td class='docblock short'><p>The ordered skiplist provides a way of storing elements such that they are always
-sorted and at the same time provides efficient way to access, insert and remove nodes.</p>
+sorted and at the same time provides efficient way to access, insert and remove nodes.
+Just like <code>SkipList</code>, it also provides access to indices.</p>
+</td>
+                    </tr>
+                
+                    <tr>
+                        <td><a class='stability Unmarked' title='No stability level'></a><a class='struct' href='struct.SkipMap.html'
+                               title='skiplist::SkipMap'>SkipMap</a></td>
+                        <td class='docblock short'><p>The skipmap provides a way of storing element pairs such that they keys are always sorted
+whilst at the same time providing efficient way to access, insert and removes nodes.</p>
 </td>
                     </tr>
                 </table></section>
