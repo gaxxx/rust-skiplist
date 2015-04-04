@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         <a href='../../rand/index.html'><img src='http://www.rust-lang.org/logos/rust-logo-128x128-blk.png' alt='' width='100'></a>
-        <p class='location'><a href='../index.html'>rand</a>::<wbr><a href='index.html'>distributions</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='exponential/index.html' title='The exponential distribution.'>exponential</a><a class='mod ' href='gamma/index.html' title='The Gamma and derived distributions.'>gamma</a><a class='mod ' href='normal/index.html' title='The normal and derived distributions.'>normal</a><a class='mod ' href='range/index.html' title='Generating numbers between two others.'>range</a></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.RandSample.html' title='A wrapper for generating types that implement `Rand` via the `Sample` &amp; `IndependentSample` traits.'>RandSample</a><a class='struct current' href='struct.Weighted.html' title='A value with a particular weight for use with `WeightedChoice`.'>Weighted</a><a class='struct ' href='struct.WeightedChoice.html' title='A distribution that selects from a finite collection of weighted items.'>WeightedChoice</a></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.IndependentSample.html' title='`Sample`s that do not require keeping track of state.'>IndependentSample</a><a class='trait ' href='trait.Sample.html' title='Types that can be used to create a random instance of `Support`.'>Sample</a></div>
+        <p class='location'><a href='../index.html'>rand</a>::<wbr><a href='index.html'>distributions</a></p><script>window.sidebarCurrent = {name: 'Weighted', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </section>
 
     <nav class="sub">
@@ -43,15 +43,17 @@
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rand</a>::<wbr><a href='index.html'>distributions</a>::<wbr><a class='struct' href=''>Weighted</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-2737' href='../../src/rand/distributions/mod.rs.html#79-84'>[src]</a></span></h1>
+        </span><a id='src-3223' href='../../src/rand/distributions/mod.rs.html#85-90'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Weighted&lt;T&gt; {
-    pub weight: <a href='http://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>,
+    pub weight: <a href='http://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,
     pub item: T,
 }</pre><div class='docblock'><p>A value with a particular weight for use with <code>WeightedChoice</code>.</p>
 </div><h2 class='fields'>Fields</h2>
 <table><tr><td id='structfield.weight'><a class='stability Unmarked' title='No stability level'></a><code>weight</code></td><td><div class='docblock'><p>The numerical weight of this item</p>
 </div></td></tr><tr><td id='structfield.item'><a class='stability Unmarked' title='No stability level'></a><code>item</code></td><td><div class='docblock'><p>The actual item which is being weighted</p>
-</div></td></tr></table></section>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a>&gt; <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../rand/distributions/struct.Weighted.html' title='rand::distributions::Weighted'>Weighted</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='http://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl&lt;T: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>&gt; <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../rand/distributions/struct.Weighted.html' title='rand::distributions::Weighted'>Weighted</a>&lt;T&gt; <span class='where'>where T: <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></span></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../rand/distributions/struct.Weighted.html' title='rand::distributions::Weighted'>Weighted</a>&lt;T&gt;</code></h4>
+<h4 id='method.clone_from' class='tymethod'><a class='stability Unstable' title='Unstable: this function is rarely used'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

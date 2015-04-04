@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["SkipList","SkipList provides a way of storing elements and provides efficient way to access, insert and remove nodes."]]});

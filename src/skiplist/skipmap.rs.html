@@ -2004,7 +2004,6 @@
 <span id="1962">1962</span>
 <span id="1963">1963</span>
 <span id="1964">1964</span>
-<span id="1965">1965</span>
 </pre><pre class='rust '>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rand</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
@@ -2015,7 +2014,6 @@
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>default</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>hash</span>::{<span class='self'>self</span>, <span class='ident'>Hash</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>iter</span>::<span class='ident'>IteratorExt</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>iter</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>num</span>;
@@ -2379,7 +2377,7 @@
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_empty</span>() {
             <span class='prelude-val'>None</span>
         } <span class='kw'>else</span> {
-            <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='kw-2'>&amp;</span><span class='number'>0</span>);
+            <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='number'>0</span>);
             <span class='kw'>unsafe</span> { <span class='prelude-val'>Some</span>(((<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>key</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>(), (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>value</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>())) }
         }
     }
@@ -2405,7 +2403,7 @@
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>is_empty</span>() {
             <span class='prelude-val'>None</span>
         } <span class='kw'>else</span> {
-            <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='kw-2'>&amp;</span><span class='number'>0</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span>;
+            <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='number'>0</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span>;
             <span class='kw'>unsafe</span> { <span class='prelude-val'>Some</span>(((<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>key</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>(), (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>value</span>.<span class='ident'>as_mut</span>().<span class='ident'>unwrap</span>())) }
         }
     }
@@ -2428,7 +2426,7 @@
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>back</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span>(<span class='kw-2'>&amp;</span><span class='ident'>K</span>, <span class='kw-2'>&amp;</span><span class='ident'>V</span>)<span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>len</span>();
         <span class='kw'>if</span> <span class='ident'>len</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
-            <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='kw-2'>&amp;</span>(<span class='ident'>len</span><span class='op'>-</span><span class='number'>1</span>));
+            <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='ident'>len</span><span class='op'>-</span><span class='number'>1</span>);
             <span class='kw'>unsafe</span> { <span class='prelude-val'>Some</span>(((<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>key</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>(), (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>value</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>())) }
         } <span class='kw'>else</span> {
             <span class='prelude-val'>None</span>
@@ -2455,7 +2453,7 @@
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>back_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span>(<span class='kw-2'>&amp;</span><span class='ident'>K</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>V</span>)<span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>len</span>();
         <span class='kw'>if</span> <span class='ident'>len</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
-            <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='kw-2'>&amp;</span>(<span class='ident'>len</span><span class='op'>-</span><span class='number'>1</span>)) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span>;
+            <span class='kw'>let</span> <span class='ident'>node</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='ident'>len</span><span class='op'>-</span><span class='number'>1</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span>;
             <span class='kw'>unsafe</span> { <span class='prelude-val'>Some</span>(((<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>key</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>(), (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>value</span>.<span class='ident'>as_mut</span>().<span class='ident'>unwrap</span>())) }
         } <span class='kw'>else</span> {
             <span class='prelude-val'>None</span>
@@ -2930,6 +2928,7 @@
     <span class='doccomment'>/// # Examples</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>/// #![feature(collections)]</span>
     <span class='doccomment'>/// use skiplist::SkipMap;</span>
     <span class='doccomment'>/// use std::collections::Bound::{Included, Unbounded};</span>
     <span class='doccomment'>///</span>
@@ -2940,7 +2939,7 @@
     <span class='doccomment'>/// }</span>
     <span class='doccomment'>/// assert_eq!(Some((&amp;4, &amp;4)), skipmap.range(Included(&amp;4), Unbounded).next());</span>
     <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>range</span><span class='op'>&lt;</span><span class='ident'>Q</span>: ?<span class='ident'>Sized</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>min</span>: <span class='ident'>Bound</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Q</span><span class='op'>&gt;</span>, <span class='ident'>max</span>: <span class='ident'>Bound</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Q</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Iter</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> <span class='kw'>where</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>range</span><span class='op'>&lt;</span><span class='ident'>Q</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>min</span>: <span class='ident'>Bound</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Q</span><span class='op'>&gt;</span>, <span class='ident'>max</span>: <span class='ident'>Bound</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Q</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Iter</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> <span class='kw'>where</span>
         <span class='ident'>K</span>: <span class='ident'>Borrow</span><span class='op'>&lt;</span><span class='ident'>Q</span><span class='op'>&gt;</span>,
         <span class='ident'>Q</span>: <span class='ident'>Ord</span>
     {
@@ -3145,9 +3144,9 @@
     <span class='doccomment'>/// # Panics</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// Panics if the index given is out of bounds.</span>
-    <span class='kw'>fn</span> <span class='ident'>get_index</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>index</span>: <span class='kw-2'>&amp;</span><span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>get_index</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>index</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
-            <span class='kw'>if</span> <span class='ident'>index</span> <span class='op'>&gt;=</span> <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>len</span>() {
+            <span class='kw'>if</span> <span class='ident'>index</span> <span class='op'>&gt;=</span> <span class='self'>self</span>.<span class='ident'>len</span>() {
                 <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;Index out of bounds.&quot;</span>);
             } <span class='kw'>else</span> {
                 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>node</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>transmute_copy</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>head</span>);
@@ -3157,7 +3156,7 @@
                 <span class='kw'>while</span> <span class='ident'>lvl</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
                     <span class='ident'>lvl</span> <span class='op'>-=</span> <span class='number'>1</span>;
 
-                    <span class='kw'>while</span> <span class='kw-2'>&amp;</span>(<span class='ident'>index_sum</span> <span class='op'>+</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links_len</span>[<span class='ident'>lvl</span>]) <span class='op'>&lt;=</span> <span class='ident'>index</span> {
+                    <span class='kw'>while</span> <span class='ident'>index_sum</span> <span class='op'>+</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links_len</span>[<span class='ident'>lvl</span>] <span class='op'>&lt;=</span> <span class='ident'>index</span> {
                         <span class='ident'>index_sum</span> <span class='op'>+=</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links_len</span>[<span class='ident'>lvl</span>];
                         <span class='ident'>node</span> <span class='op'>=</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>links</span>[<span class='ident'>lvl</span>].<span class='ident'>unwrap</span>();
                     }
@@ -3208,9 +3207,9 @@
                     }
 
                     <span class='kw'>if</span> <span class='ident'>lvl</span> <span class='op'>&lt;=</span> (<span class='op'>*</span><span class='ident'>node</span>).<span class='ident'>level</span> {
-                        <span class='ident'>rows</span>[<span class='ident'>lvl</span>].<span class='ident'>push_str</span>(<span class='ident'>value_len</span>.<span class='ident'>as_slice</span>());
+                        <span class='ident'>rows</span>[<span class='ident'>lvl</span>].<span class='ident'>push_str</span>(<span class='ident'>value_len</span>.<span class='ident'>as_ref</span>());
                     } <span class='kw'>else</span> {
-                        <span class='ident'>rows</span>[<span class='ident'>lvl</span>].<span class='ident'>push_str</span>(<span class='ident'>dashes</span>.<span class='ident'>as_slice</span>());
+                        <span class='ident'>rows</span>[<span class='ident'>lvl</span>].<span class='ident'>push_str</span>(<span class='ident'>dashes</span>.<span class='ident'>as_ref</span>());
                     }
                 }
 
@@ -3235,7 +3234,6 @@
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>Send</span>, <span class='ident'>V</span>: <span class='ident'>Send</span><span class='op'>&gt;</span> <span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>SkipMap</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> { }
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>Sync</span>, <span class='ident'>V</span>: <span class='ident'>Sync</span><span class='op'>&gt;</span> <span class='ident'>Sync</span> <span class='kw'>for</span> <span class='ident'>SkipMap</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> { }
 
-<span class='attribute'>#[<span class='ident'>unsafe_destructor</span>]</span>
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> <span class='ident'>ops</span>::<span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>SkipMap</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
@@ -3320,7 +3318,7 @@
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> <span class='ident'>ops</span>::<span class='ident'>Index</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>SkipMap</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> {
     <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> <span class='ident'>V</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>index</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>index</span>: <span class='kw-2'>&amp;</span><span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>V</span> {
+    <span class='kw'>fn</span> <span class='ident'>index</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>index</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>V</span> {
         <span class='kw'>unsafe</span> {
             (<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='ident'>index</span>)).<span class='ident'>value</span>.<span class='ident'>as_ref</span>().<span class='ident'>unwrap</span>()
         }
@@ -3328,7 +3326,7 @@
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> <span class='ident'>ops</span>::<span class='ident'>IndexMut</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>SkipMap</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>index_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>index</span>: <span class='kw-2'>&amp;</span><span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>V</span> {
+    <span class='kw'>fn</span> <span class='ident'>index_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>index</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>V</span> {
         <span class='kw'>unsafe</span> {
             (<span class='op'>*</span>(<span class='self'>self</span>.<span class='ident'>get_index</span>(<span class='ident'>index</span>) <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>SkipNode</span><span class='op'>&lt;</span><span class='ident'>K</span>, <span class='ident'>V</span><span class='op'>&gt;</span>)).<span class='ident'>value</span>.<span class='ident'>as_mut</span>().<span class='ident'>unwrap</span>()
         }
