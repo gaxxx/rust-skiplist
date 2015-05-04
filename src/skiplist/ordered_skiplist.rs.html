@@ -2073,7 +2073,6 @@
 <span id="2031">2031</span>
 <span id="2032">2032</span>
 <span id="2033">2033</span>
-<span id="2034">2034</span>
 </pre><pre class='rust '>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rand</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
@@ -3493,7 +3492,6 @@
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>Send</span><span class='op'>&gt;</span> <span class='ident'>Send</span> <span class='kw'>for</span> <span class='ident'>OrderedSkipList</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> { }
 <span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>Sync</span><span class='op'>&gt;</span> <span class='ident'>Sync</span> <span class='kw'>for</span> <span class='ident'>OrderedSkipList</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> { }
 
-<span class='attribute'>#[<span class='ident'>unsafe_destructor</span>]</span>
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>ops</span>::<span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>OrderedSkipList</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
