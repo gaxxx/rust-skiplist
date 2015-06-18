@@ -42,8 +42,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>skiplist</a>::<wbr><a class='struct' href=''>SkipMap</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="#" title="collapse all docs">[&minus;]</a>
-        </span><a id='src-6800' class='srclink' href='../src/skiplist/skipmap.rs.html#123-128' title='goto source code'>[src]</a></span></h1>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-6847' class='srclink' href='../src/skiplist/skipmap.rs.html#123-128' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct SkipMap&lt;K, V&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>The skipmap provides a way of storing element pairs such that they keys are always sorted
@@ -58,7 +60,7 @@ being left out of the proper ordering.</p>
 <div class='docblock'><p>Create a new skipmap with the default number of 16 levels.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span>: <span class='ident'>SkipMap</span><span class='op'>&lt;</span><span class='ident'>i64</span>, <span class='ident'>String</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -69,7 +71,7 @@ capacity.  Specifically, it uses <code>floor(log2(capacity))</code> number of le
 only <em>a few</em> nodes occupy the highest level.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>with_capacity</span>(<span class='number'>100</span>);
@@ -79,7 +81,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 <div class='docblock'><p>Insert the element into the skipmap.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -93,7 +95,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 <div class='docblock'><p>Clears the skipmap, removing all values.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -105,7 +107,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 <div class='docblock'><p>Returns the number of elements in the skipmap.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -116,7 +118,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 <div class='docblock'><p>Returns <code>true</code> if the skipmap contains no elements.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -129,7 +131,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 <div class='docblock'><p>Provides a reference to the front element, or <code>None</code> if the skipmap is empty.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -145,7 +147,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 <p>The reference to the key remains immutable as the keys must remain sorted.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -159,7 +161,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 <div class='docblock'><p>Provides a reference to the back element, or <code>None</code> if the skipmap is empty.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -175,7 +177,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 <p>The reference to the key remains immutable as the keys must remain sorted.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -190,7 +192,7 @@ only <em>a few</em> nodes occupy the highest level.</p>
 or the index is out of bounds.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -204,7 +206,7 @@ or the index is out of bounds.</p>
 or the index is out of bounds.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -223,7 +225,7 @@ or the index is out of bounds.</p>
 <div class='docblock'><p>Removes the first element and returns it, or <code>None</code> if the sequence is empty.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -238,7 +240,7 @@ or the index is out of bounds.</p>
 <div class='docblock'><p>Removes the last element and returns it, or <code>None</code> if the sequence is empty.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -253,7 +255,7 @@ or the index is out of bounds.</p>
 <div class='docblock'><p>Returns true if the value is contained in the skipmap.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -266,7 +268,7 @@ or the index is out of bounds.</p>
 the skipmap.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -282,7 +284,7 @@ the skipmap.</p>
 <p>Panics is the index is out of bounds.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -294,7 +296,7 @@ the skipmap.</p>
 <div class='docblock'><p>Get an owning iterator over the entries of the skipmap.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -307,7 +309,7 @@ the skipmap.</p>
 <div class='docblock'><p>Creates an iterator over the entries of the skipmap.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -322,7 +324,7 @@ the skipmap.</p>
 <p>The keys cannot be modified as they must remain in order.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -335,7 +337,7 @@ the skipmap.</p>
 <div class='docblock'><p>Creates an iterator over the keys of the skipmap.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -348,7 +350,7 @@ the skipmap.</p>
 <div class='docblock'><p>Creates an iterator over the values of the skipmap.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>skipmap</span> <span class='op'>=</span> <span class='ident'>SkipMap</span>::<span class='ident'>new</span>();
@@ -364,7 +366,7 @@ infinity&quot;, and if max is <code>Unbounded</code>, then it will be treated as
 range(Unbounded, Unbounded) will yield the whole collection.</p>
 
 <h1 id="examples" class='section-header'><a
-                           href="#examples">Examples</a></h1><pre id='rust-example-rendered' class='rust '>
+                           href="#examples">Examples</a></h1><pre class='rust rust-example-rendered'>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>collections</span>)]</span>
 <span class='kw'>use</span> <span class='ident'>skiplist</span>::<span class='ident'>SkipMap</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>Bound</span>::{<span class='ident'>Included</span>, <span class='ident'>Unbounded</span>};
@@ -440,6 +442,10 @@ skipmap&#39;s comparison function.</p>
                 <code>struct</code>, <code>enum</code>,
                 <code>trait</code>, <code>typedef</code> (or
                 <code>tdef</code>).
+            </p>
+            <p>
+                Search functions by type signature (e.g.
+                <code>vec -> usize</code>)
             </p>
         </div>
     </div>
