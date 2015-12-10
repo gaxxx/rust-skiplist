@@ -1,1 +1,1 @@
-initSidebarItems({"trait":[["LevelGenerator","Upon the insertion of a new node in the list, the node is replicated to high levels with a certain probability as determined by a `LevelGenerator`."]]});
+initSidebarItems({});
