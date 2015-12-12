@@ -1838,11 +1838,15 @@
 <span id="1795">1795</span>
 <span id="1796">1796</span>
 <span id="1797">1797</span>
+<span id="1798">1798</span>
+<span id="1799">1799</span>
+<span id="1800">1800</span>
 </pre><pre class='rust '>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rand</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>test</span>;
 
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cmp</span>::{<span class='self'>self</span>, <span class='ident'>Ordering</span>};
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>)]</span>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>Bound</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>default</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
@@ -2510,6 +2514,7 @@
     <span class='doccomment'>/// }</span>
     <span class='doccomment'>/// assert_eq!(Some(&amp;4), skiplist.range(Included(4), Unbounded).next());</span>
     <span class='doccomment'>/// ```</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>range</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>min</span>: <span class='ident'>Bound</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span>, <span class='ident'>max</span>: <span class='ident'>Bound</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>Iter</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='comment'>// We have to find the start and end nodes.  We use `find_value`; if no node with the</span>
@@ -2569,6 +2574,7 @@
     <span class='doccomment'>/// }</span>
     <span class='doccomment'>/// assert_eq!(Some(&amp;mut 4), skiplist.range_mut(Included(4), Unbounded).next());</span>
     <span class='doccomment'>/// ```</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;unstable&quot;</span>)]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>range_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>min</span>: <span class='ident'>Bound</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span>, <span class='ident'>max</span>: <span class='ident'>Bound</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>IterMut</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
         <span class='kw'>unsafe</span> {
             <span class='comment'>// We have to find the start and end nodes.  We use `find_value`; if no node with the</span>
