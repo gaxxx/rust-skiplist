@@ -177,9 +177,9 @@
 
 <span class='kw'>use</span> <span class='ident'>rand</span>::<span class='ident'>distributions</span>::{<span class='self'>self</span>, <span class='ident'>Sample</span>};
 
-<span class='comment'>////////////////////////////////////////////////////////////////////////////////////////////////////</span>
+<span class='comment'>// /////////////////////////////////////////////////////////////////////////////////////////////////</span>
 <span class='comment'>// Level Generator</span>
-<span class='comment'>////////////////////////////////////////////////////////////////////////////////////////////////////</span>
+<span class='comment'>// /////////////////////////////////////////////////////////////////////////////////////////////////</span>
 
 <span class='doccomment'>/// Upon the insertion of a new node in the list, the node is replicated to high levels with a</span>
 <span class='doccomment'>/// certain probability as determined by a `LevelGenerator`.</span>
@@ -205,7 +205,7 @@
     <span class='ident'>total</span>: <span class='ident'>usize</span>,
     <span class='ident'>p</span>: <span class='ident'>f64</span>,
     <span class='ident'>unit_range</span>: <span class='ident'>distributions</span>::<span class='ident'>Range</span><span class='op'>&lt;</span><span class='ident'>f64</span><span class='op'>&gt;</span>,
-    <span class='ident'>rng</span>: <span class='ident'>rand</span>::<span class='ident'>XorShiftRng</span>      <span class='comment'>// Fast generator</span>
+    <span class='ident'>rng</span>: <span class='ident'>rand</span>::<span class='ident'>XorShiftRng</span>, <span class='comment'>// Fast generator</span>
 }
 
 <span class='kw'>impl</span> <span class='ident'>GeometricalLevelGenerator</span> {
@@ -227,7 +227,7 @@
             <span class='ident'>total</span>: <span class='ident'>total</span>,
             <span class='ident'>p</span>: <span class='ident'>p</span>,
             <span class='ident'>unit_range</span>: <span class='ident'>distributions</span>::<span class='ident'>Range</span>::<span class='ident'>new</span>(<span class='number'>0.0f64</span>, <span class='number'>1.0</span>),
-            <span class='ident'>rng</span>: <span class='ident'>rand</span>::<span class='ident'>XorShiftRng</span>::<span class='ident'>new_unseeded</span>()
+            <span class='ident'>rng</span>: <span class='ident'>rand</span>::<span class='ident'>XorShiftRng</span>::<span class='ident'>new_unseeded</span>(),
         }
     }
 }
